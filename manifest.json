@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "鴻海集團差旅平台 填表助手",
+  "version": "1.0",
+  "description": "Automatically fills Foxconn TERS travel application forms.",
+  "permissions": ["scripting", "storage", "activeTab", "sidePanel"],
+  "host_permissions": ["https://ters.efoxconn.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Fill TERS Form",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "side_panel": {
+    "default_path": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://ters.efoxconn.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ]
+}
