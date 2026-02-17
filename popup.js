@@ -3,14 +3,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // setInitialDateTime(); // Removed default date/time setting
 
   // --- Flatpickr Initialization ---
-  flatpickr(".flatpickr-date", {
+  flatpickr(".js-flatpickr-date", {
     dateFormat: "Y/m/d",
     theme: "dark",
     disableMobile: true,
     allowInput: true,
   });
 
-  flatpickr(".flatpickr-time", {
+  flatpickr(".js-flatpickr-time", {
     enableTime: true,
     noCalendar: true,
     dateFormat: "H:i:S",
