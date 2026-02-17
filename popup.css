@@ -1,0 +1,1015 @@
+/* ============================================================
+   CYBERPUNK / GLITCH DESIGN SYSTEM — popup.css
+   「高科技，低生活 (High-Tech, Low-Life)」
+   ============================================================ */
+
+/* === Google Font === */
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap");
+
+/* === Design Tokens (CSS 變數) === */
+:root {
+  /* 顏色 */
+  --bg: #0a0a0f;
+  --bg-surface: #12121a;
+  --bg-muted: #1c1c2e;
+  --border: #2a2a3a;
+  --fg: #e0e0e0;
+  --fg-muted: #6b7280;
+  --fg-label: #9ca3af;
+
+  /* 強調色 */
+  --accent: #00ff88;
+  --accent-dim: rgba(0, 255, 136, 0.15);
+  --accent-secondary: #ff00ff;
+  --accent-secondary-dim: rgba(255, 0, 255, 0.15);
+  --accent-tertiary: #00d4ff;
+  --accent-tertiary-dim: rgba(0, 212, 255, 0.15);
+  --destructive: #ff3366;
+  --destructive-dim: rgba(255, 51, 102, 0.15);
+
+  /* 光暈陰影 */
+  --glow-sm: 0 0 3px var(--accent), 0 0 6px rgba(0, 255, 136, 0.19);
+  --glow-md: 0 0 5px var(--accent), 0 0 10px rgba(0, 255, 136, 0.25);
+  --glow-lg: 0 0 10px var(--accent), 0 0 20px rgba(0, 255, 136, 0.37), 0 0 40px rgba(0, 255, 136, 0.19);
+  --glow-secondary: 0 0 5px var(--accent-secondary), 0 0 20px rgba(255, 0, 255, 0.37);
+  --glow-tertiary: 0 0 5px var(--accent-tertiary), 0 0 20px rgba(0, 212, 255, 0.37);
+
+  /* 字體 */
+  --font-mono: "Share Tech Mono", "Courier New", monospace;
+  --font-display: "Orbitron", sans-serif;
+
+  /* 半徑 */
+  --radius-none: 0px;
+  --radius-sm: 2px;
+  --radius-base: 4px;
+
+  /* 切角尺寸 */
+  --chamfer: 8px;
+  --chamfer-sm: 5px;
+}
+
+/* === Reset / 全域樣式 === */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: auto;
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 電路網格背景 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* 掃描線疊加層 */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.08) 2px, rgba(0, 0, 0, 0.08) 4px);
+}
+
+/* ============================================================
+   切角 (Chamfer) — clip-path
+   ============================================================ */
+.cyber-chamfer {
+  clip-path: polygon(
+    0 var(--chamfer),
+    var(--chamfer) 0,
+    calc(100% - var(--chamfer)) 0,
+    100% var(--chamfer),
+    100% calc(100% - var(--chamfer)),
+    calc(100% - var(--chamfer)) 100%,
+    var(--chamfer) 100%,
+    0 calc(100% - var(--chamfer))
+  );
+}
+
+.cyber-chamfer-sm {
+  clip-path: polygon(
+    0 var(--chamfer-sm),
+    var(--chamfer-sm) 0,
+    calc(100% - var(--chamfer-sm)) 0,
+    100% var(--chamfer-sm),
+    100% calc(100% - var(--chamfer-sm)),
+    calc(100% - var(--chamfer-sm)) 100%,
+    var(--chamfer-sm) 100%,
+    0 calc(100% - var(--chamfer-sm))
+  );
+}
+
+/* ============================================================
+   動畫關鍵影格
+   ============================================================ */
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes rgbShift {
+  0%,
+  100% {
+    text-shadow:
+      -2px 0 var(--accent-secondary),
+      2px 0 var(--accent-tertiary);
+  }
+  50% {
+    text-shadow:
+      2px 0 var(--accent-secondary),
+      -2px 0 var(--accent-tertiary);
+  }
+}
+
+@keyframes neonPulse {
+  0%,
+  100% {
+    box-shadow: var(--glow-md);
+  }
+  50% {
+    box-shadow: var(--glow-lg);
+  }
+}
+
+@keyframes glitchClip {
+  0% {
+    clip-path: inset(40% 0 61% 0);
+  }
+  20% {
+    clip-path: inset(92% 0 1% 0);
+  }
+  40% {
+    clip-path: inset(43% 0 1% 0);
+  }
+  60% {
+    clip-path: inset(25% 0 58% 0);
+  }
+  80% {
+    clip-path: inset(54% 0 7% 0);
+  }
+  100% {
+    clip-path: inset(58% 0 43% 0);
+  }
+}
+
+@keyframes borderGlow {
+  0%,
+  100% {
+    border-color: var(--accent);
+  }
+  33% {
+    border-color: var(--accent-tertiary);
+  }
+  66% {
+    border-color: var(--accent-secondary);
+  }
+}
+
+/* ============================================================
+   HEADER — 頂部標題列
+   ============================================================ */
+.cyber-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 10, 15, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+  text-align: center;
+}
+
+.cyber-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+.cyber-header h2 {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+  margin: 0;
+}
+
+/* ============================================================
+   TAB 導航
+   ============================================================ */
+.cyber-tabs {
+  display: flex;
+  position: sticky;
+  top: 45px;
+  z-index: 40;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.cyber-tab {
+  flex: 1;
+  padding: 10px 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--fg-muted);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 150ms;
+  text-align: center;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+}
+
+.cyber-tab:hover {
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.cyber-tab[data-active="true"] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  background: var(--accent-dim);
+  text-shadow: 0 0 6px rgba(0, 255, 136, 0.3);
+}
+
+/* ============================================================
+   主內容區
+   ============================================================ */
+.cyber-main {
+  position: relative;
+  z-index: 1;
+  padding: 16px;
+  padding-bottom: 80px;
+}
+
+/* Tab 內容切換 */
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+
+/* ============================================================
+   卡片 / 容器
+   ============================================================ */
+.cyber-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  padding: 14px;
+  margin-bottom: 12px;
+  transition: all 200ms;
+}
+
+.cyber-card:hover {
+  border-color: rgba(0, 255, 136, 0.3);
+}
+
+/* 終端機變體 */
+.cyber-card--terminal {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  position: relative;
+  padding-top: 32px;
+}
+
+.cyber-card--terminal::before {
+  content: "● ● ●";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 8px;
+  letter-spacing: 4px;
+  background: var(--bg-muted);
+  border-bottom: 1px solid var(--border);
+  color: var(--destructive);
+}
+
+/* 全息變體 */
+.cyber-card--holographic {
+  background: rgba(28, 28, 46, 0.3);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  box-shadow: var(--glow-sm);
+  backdrop-filter: blur(4px);
+  position: relative;
+}
+
+/* 全息角落裝飾 */
+.cyber-card--holographic::before,
+.cyber-card--holographic::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: var(--accent);
+  border-style: solid;
+}
+
+.cyber-card--holographic::before {
+  top: -1px;
+  left: -1px;
+  border-width: 1px 0 0 1px;
+}
+
+.cyber-card--holographic::after {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 1px 1px 0;
+}
+
+/* ============================================================
+   區段標題
+   ============================================================ */
+.cyber-section-title {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cyber-section-title .indicator {
+  width: 3px;
+  height: 16px;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+/* ============================================================
+   表單元素 — 輸入框
+   ============================================================ */
+.cyber-field {
+  margin-bottom: 12px;
+}
+
+.cyber-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--fg-label);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.cyber-input-wrap {
+  position: relative;
+}
+
+.cyber-input-wrap::before {
+  content: ">";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.cyber-input {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 8px 10px 8px 24px;
+  outline: none;
+  transition: all 200ms;
+}
+
+.cyber-input::placeholder {
+  color: var(--fg-muted);
+  opacity: 0.5;
+}
+
+.cyber-input:focus {
+  border-color: var(--accent);
+  box-shadow: var(--glow-sm);
+}
+
+/* 不帶前綴的輸入框 (日期/時間等) */
+.cyber-input--no-prefix {
+  padding-left: 10px;
+}
+
+/* Textarea */
+.cyber-textarea {
+  width: 100%;
+  min-height: 64px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 8px 10px;
+  outline: none;
+  resize: none;
+  transition: all 200ms;
+}
+
+.cyber-textarea::placeholder {
+  color: var(--fg-muted);
+  opacity: 0.5;
+}
+
+.cyber-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: var(--glow-sm);
+}
+
+/* Select 下拉選單 */
+.cyber-select {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 8px 10px;
+  outline: none;
+  cursor: pointer;
+  transition: all 200ms;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300ff88' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.cyber-select:focus {
+  border-color: var(--accent);
+  box-shadow: var(--glow-sm);
+}
+
+/* Checkbox */
+.cyber-checkbox-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.cyber-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.cyber-checkbox-label {
+  font-size: 13px;
+  color: var(--fg);
+  cursor: pointer;
+}
+
+/* 行內分組 (日期+時間 / 聯絡人+電話) */
+.cyber-row {
+  display: flex;
+  gap: 10px;
+}
+
+.cyber-row > * {
+  flex: 1;
+}
+
+/* ============================================================
+   按鈕
+   ============================================================ */
+.cyber-btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 16px;
+  border: 2px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  transition: all 150ms;
+  position: relative;
+}
+
+.cyber-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+  box-shadow: var(--glow-md);
+}
+
+.cyber-btn:active {
+  transform: scale(0.97);
+}
+
+/* 次要變體 (洋紅) */
+.cyber-btn--secondary {
+  border-color: var(--accent-secondary);
+  color: var(--accent-secondary);
+}
+
+.cyber-btn--secondary:hover {
+  background: var(--accent-secondary);
+  color: var(--bg);
+  box-shadow: var(--glow-secondary);
+}
+
+/* 幽靈變體 */
+.cyber-btn--ghost {
+  border: 1px solid var(--border);
+  color: var(--fg-muted);
+}
+
+.cyber-btn--ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+
+/* 危險變體 */
+.cyber-btn--danger {
+  border-color: var(--destructive);
+  color: var(--destructive);
+  font-size: 16px;
+  font-weight: 700;
+  padding: 4px 10px;
+  line-height: 1;
+}
+
+.cyber-btn--danger:hover {
+  background: var(--destructive);
+  color: var(--bg);
+  box-shadow:
+    0 0 5px var(--destructive),
+    0 0 10px rgba(255, 51, 102, 0.3);
+}
+
+/* Glitch CTA 變體 (一鍵填入) */
+.cyber-btn--glitch {
+  width: 100%;
+  padding: 14px 16px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-btn--glitch::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 400ms;
+}
+
+.cyber-btn--glitch:hover {
+  filter: brightness(1.15);
+  box-shadow: var(--glow-lg);
+  color: var(--bg);
+  background: var(--accent);
+}
+
+.cyber-btn--glitch:hover::before {
+  transform: translateX(100%);
+}
+
+/* 新增一筆按鈕 */
+.cyber-btn--add {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+  border: 1px dashed var(--border);
+  background: transparent;
+  color: var(--fg-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 150ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.cyber-btn--add:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.cyber-btn--add .plus-icon {
+  font-size: 16px;
+  transition: transform 150ms;
+}
+
+.cyber-btn--add:hover .plus-icon {
+  transform: scale(1.3);
+}
+
+/* 小型按鈕 (儲存/刪除) */
+.cyber-btn--sm {
+  padding: 6px 12px;
+  font-size: 11px;
+}
+
+/* ============================================================
+   範本區
+   ============================================================ */
+.cyber-template-section {
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  padding: 12px;
+  margin-bottom: 14px;
+}
+
+.cyber-template-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.cyber-template-row:last-child {
+  margin-bottom: 0;
+}
+
+.cyber-template-select {
+  flex: 1;
+}
+
+.cyber-template-input {
+  flex: 1;
+}
+
+/* ============================================================
+   提醒 / Alert
+   ============================================================ */
+.cyber-alert {
+  border-left: 3px solid var(--accent-secondary);
+  background: var(--accent-secondary-dim);
+  padding: 10px 12px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  color: var(--fg);
+  line-height: 1.6;
+}
+
+.cyber-alert strong {
+  color: var(--accent-secondary);
+}
+
+.cyber-alert--info {
+  border-left-color: var(--accent-tertiary);
+  background: var(--accent-tertiary-dim);
+}
+
+.cyber-alert--info strong {
+  color: var(--accent-tertiary);
+}
+
+.cyber-alert .highlight {
+  color: var(--accent);
+  font-weight: 700;
+  background: var(--accent-dim);
+  padding: 0 4px;
+}
+
+/* ============================================================
+   預算群組
+   ============================================================ */
+.cyber-budget-group {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.cyber-budget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--fg-label);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 6px 8px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  margin-bottom: 10px;
+}
+
+/* 預算列項目 */
+.cyber-budget-row {
+  background: var(--bg);
+  padding: 10px;
+  border: 1px solid var(--border);
+  margin-bottom: 6px;
+  transition: all 150ms;
+}
+
+.cyber-budget-row:hover {
+  border-color: rgba(0, 255, 136, 0.3);
+}
+
+.cyber-budget-row-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.cyber-row-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--fg-muted);
+  background: var(--bg-muted);
+  padding: 2px 6px;
+  letter-spacing: 1px;
+}
+
+.cyber-btn-remove {
+  background: transparent;
+  border: none;
+  color: var(--fg-muted);
+  font-size: 16px;
+  cursor: pointer;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 150ms;
+}
+
+.cyber-btn-remove:hover {
+  color: var(--destructive);
+  background: var(--destructive-dim);
+  text-shadow: 0 0 6px var(--destructive);
+}
+
+.cyber-budget-inputs {
+  display: flex;
+  gap: 6px;
+}
+
+.cyber-budget-inputs .desc-col {
+  flex: 1;
+  margin-bottom: 6px;
+}
+
+.cyber-budget-inputs-row {
+  display: flex;
+  gap: 6px;
+}
+
+.cyber-budget-inputs-row .amount-col {
+  flex: 2;
+}
+
+.cyber-budget-inputs-row .currency-col {
+  flex: 1;
+}
+
+/* 預算列內小型輸入框（不帶 > 前綴） */
+.cyber-input--mini {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 6px 8px;
+  outline: none;
+  transition: all 200ms;
+}
+
+.cyber-input--mini::placeholder {
+  color: var(--fg-muted);
+  opacity: 0.5;
+}
+
+.cyber-input--mini:focus {
+  border-color: var(--accent);
+  box-shadow: var(--glow-sm);
+}
+
+.cyber-select--mini {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 6px 4px;
+  outline: none;
+  cursor: pointer;
+  transition: all 200ms;
+  appearance: none;
+  -webkit-appearance: none;
+  text-align: center;
+  font-weight: 500;
+}
+
+.cyber-select--mini:focus {
+  border-color: var(--accent);
+  box-shadow: var(--glow-sm);
+}
+
+/* ============================================================
+   固定底部 CTA 欄
+   ============================================================ */
+.cyber-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  padding: 12px 16px;
+  background: rgba(10, 10, 15, 0.9);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--border);
+}
+
+.cyber-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+/* ============================================================
+   狀態通知 (Toast)
+   ============================================================ */
+.cyber-status {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 16px 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 400;
+  text-align: center;
+  border: 1px solid var(--accent);
+  background: rgba(10, 10, 15, 0.95);
+  color: var(--accent);
+  box-shadow: var(--glow-md);
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms;
+  z-index: 100;
+  max-width: 80vw;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   未開放分頁佔位
+   ============================================================ */
+.cyber-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 50vh;
+}
+
+.cyber-placeholder .icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+  opacity: 0.4;
+  filter: grayscale(0.5);
+}
+
+.cyber-placeholder h3 {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--fg-label);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.cyber-placeholder p {
+  color: var(--fg-muted);
+  font-size: 12px;
+}
+
+/* ============================================================
+   Glitch 文字效果 (用於標題)
+   ============================================================ */
+.cyber-glitch {
+  position: relative;
+}
+
+.cyber-glitch::before,
+.cyber-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cyber-glitch::before {
+  color: var(--accent-secondary);
+  animation: glitchClip 3s infinite linear alternate-reverse;
+  left: -1px;
+}
+
+.cyber-glitch::after {
+  color: var(--accent-tertiary);
+  animation: glitchClip 2s infinite linear alternate-reverse;
+  left: 1px;
+}
+
+/* ============================================================
+   閃爍游標
+   ============================================================ */
+.cyber-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* ============================================================
+   滾動條 Cyberpunk 風格
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  box-shadow: 0 0 4px var(--accent);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-tertiary);
+}
+
+/* ============================================================
+   選取文字顏色
+   ============================================================ */
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}

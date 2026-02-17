@@ -8,11 +8,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
-      // 1. Deactivate all tabs
+      // 1. 取消所有分頁的啟用狀態
       tabs.forEach((t) => t.removeAttribute("data-active"));
-      // 2. Hide all contents
-      contents.forEach((c) => c.classList.add("hidden"));
-      contents.forEach((c) => c.classList.remove("block"));
+      // 2. 隱藏所有內容
+      contents.forEach((c) => c.classList.remove("active"));
 
       // 3. Activate clicked tab
       tab.setAttribute("data-active", "true");
@@ -21,8 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const targetId = tab.getAttribute("data-tab");
       const targetContent = document.getElementById(targetId);
       if (targetContent) {
-        targetContent.classList.remove("hidden");
-        targetContent.classList.add("block");
+        targetContent.classList.add("active");
       }
     });
   });
@@ -293,19 +291,20 @@ function fillCurrentTab() {
   });
 }
 
-function showStatus(msg, color) {
+function showStatus(msg, borderColor) {
   const el = document.getElementById("status");
   el.innerText = msg;
 
-  // Use the passed color as background, white text
-  el.style.backgroundColor = color;
-  el.style.color = "white";
+  // Cyberpunk 風格：深色背景 + 霓虹邊框
+  el.style.borderColor = borderColor || "#00ff88";
+  el.style.color = borderColor || "#00ff88";
+  el.style.boxShadow = `0 0 5px ${borderColor || "#00ff88"}, 0 0 10px ${borderColor || "#00ff88"}40`;
 
-  // Show it
-  el.classList.remove("opacity-0");
+  // 顯示
+  el.style.opacity = "1";
 
   setTimeout(() => {
-    // Hide it
-    el.classList.add("opacity-0");
+    // 隱藏
+    el.style.opacity = "0";
   }, 3000);
 }

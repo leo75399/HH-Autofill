@@ -4,200 +4,114 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>鴻海集團差旅平台 填表助手</title>
-    <script src="tailwind-browser.js"></script>
-    <style type="text/tailwindcss">
-      @theme {
-        /* === Vaporwave Light Mode — Base Colors === */
-        --color-vw-bg: #fdf2f8;
-        --color-vw-surface: #ffffff;
-        --color-vw-current: #f2f2f2;
-        --color-vw-border: #e0c4d8;
-        --color-vw-fg: #2d1b3d;
-        --color-vw-muted: #7c5e8a;
-        --color-vw-label: #6b4d7a;
-
-        /* === Vaporwave Accent Colors === */
-        --color-vw-pink: #d6368b;
-        --color-vw-pink-light: #fce4f0;
-        --color-vw-purple: #9b45e4;
-        --color-vw-purple-light: #f0e0fc;
-        --color-vw-cyan: #01aadc;
-        --color-vw-cyan-light: #dff4fd;
-        --color-vw-mint: #05c97a;
-        --color-vw-mint-light: #ddfcef;
-        --color-vw-coral: #e9556b;
-        --color-vw-coral-light: #fddee3;
-        --color-vw-yellow: #d4a017;
-        --color-vw-yellow-light: #fff8dc;
-        --color-vw-lavender: #b967ff;
-        --color-vw-lavender-light: #f3e6ff;
-      }
-    </style>
+    <link rel="stylesheet" href="popup.css" />
   </head>
-  <body class="w-full min-h-screen m-0 p-0 box-border overflow-y-auto bg-vw-bg font-sans text-vw-fg">
-    <!-- Header / Title -->
-    <div class="sticky top-0 z-50 bg-vw-bg/95 backdrop-blur shadow-sm border-b border-vw-border px-5 py-3">
-      <h2 class="text-lg font-bold text-center text-vw-fg m-0">鴻海集團差旅平台 填表助手</h2>
+  <body>
+    <!-- Header / 頂部標題列 -->
+    <div class="cyber-header">
+      <h2 class="cyber-glitch" data-text="HH AUTOFILL">HH AUTOFILL</h2>
     </div>
 
-    <!-- Tab Navigation -->
-    <div class="flex border-b border-vw-border bg-white sticky top-[53px] z-40">
-      <button
-        class="tab-btn flex-1 py-3 text-sm font-medium text-vw-muted hover:text-vw-pink hover:bg-vw-pink-light transition-colors border-b-2 border-transparent data-[active=true]:border-vw-pink data-[active=true]:text-vw-pink data-[active=true]:bg-vw-pink-light/20"
-        data-tab="tab-apply"
-        data-active="true"
-      >
-        員工因公外出申請單
-      </button>
-      <button
-        class="tab-btn flex-1 py-3 text-sm font-medium text-vw-muted hover:text-vw-pink hover:bg-vw-pink-light transition-colors border-b-2 border-transparent data-[active=true]:border-vw-pink data-[active=true]:text-vw-pink data-[active=true]:bg-vw-pink-light/20"
-        data-tab="tab-expense"
-      >
-        員工因公外出報支
-      </button>
-      <button
-        class="tab-btn flex-1 py-3 text-sm font-medium text-vw-muted hover:text-vw-pink hover:bg-vw-pink-light transition-colors border-b-2 border-transparent data-[active=true]:border-vw-pink data-[active=true]:text-vw-pink data-[active=true]:bg-vw-pink-light/20"
-        data-tab="tab-general"
-      >
-        員工費用<br />一般費用申請單
-      </button>
+    <!-- Tab 導航 -->
+    <div class="cyber-tabs">
+      <button class="cyber-tab tab-btn" data-tab="tab-apply" data-active="true">員工因公外出申請單</button>
+      <button class="cyber-tab tab-btn" data-tab="tab-expense">員工因公外出報支</button>
+      <button class="cyber-tab tab-btn" data-tab="tab-general">員工費用<br />一般費用申請單</button>
     </div>
 
-    <!-- Main Content Area -->
-    <div class="p-5 pb-24">
-      <!-- TAB 1: 員工因公外出申請單 (Existing Content) -->
-      <div id="tab-apply" class="tab-content block">
-        <!-- Template Controls -->
-        <div class="flex flex-col gap-2 mb-4 p-3 bg-vw-current rounded-xl shadow-sm border border-vw-border/50">
-          <label for="templateSelect" class="block text-sm font-medium text-vw-label"> 選擇範本 (Template) </label>
-          <div class="flex gap-2">
-            <select
-              id="templateSelect"
-              class="flex-1 bg-white border border-vw-border rounded-lg px-2 py-1.5 text-sm outline-none focus:ring-2 focus:ring-vw-pink/20 focus:border-vw-pink transition-all"
-            >
-              <option value="">-- 請選擇 --</option>
-            </select>
-            <button
-              id="btn-delete-template"
-              class="w-auto px-3 py-1.5 bg-vw-coral-light text-vw-coral rounded-lg text-lg leading-none font-bold hover:bg-vw-coral hover:text-white transition-all shadow-sm active:scale-95"
-              title="刪除此範本"
-            >
-              &times;
-            </button>
+    <!-- 主內容區 -->
+    <div class="cyber-main">
+      <!-- TAB 1: 員工因公外出申請單 -->
+      <div id="tab-apply" class="tab-content active">
+        <!-- 範本控制區 -->
+        <div class="cyber-template-section cyber-chamfer-sm">
+          <div class="cyber-field">
+            <label for="templateSelect" class="cyber-label">選擇範本 (Template)</label>
+            <div class="cyber-template-row">
+              <div class="cyber-template-select">
+                <select id="templateSelect" class="cyber-select">
+                  <option value="">-- 請選擇 --</option>
+                </select>
+              </div>
+              <button id="btn-delete-template" class="cyber-btn cyber-btn--danger" title="刪除此範本">&times;</button>
+            </div>
           </div>
-          <div class="flex gap-2 mt-1">
-            <input
-              type="text"
-              id="newTemplateName"
-              placeholder="新範本名稱 (例如: 高雄出差（環保局專案）)"
-              class="flex-1 bg-white border border-vw-border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-vw-pink/20 focus:border-vw-pink transition-all"
-            />
-            <button id="btn-save-template" class="w-16 px-2 py-2 bg-vw-cyan text-white rounded-lg text-sm font-medium hover:bg-opacity-90 transition-all shadow-sm active:scale-95">
-              儲存
-            </button>
+          <div class="cyber-template-row">
+            <div class="cyber-template-input">
+              <input type="text" id="newTemplateName" placeholder="新範本名稱 (例如: 高雄出差)" class="cyber-input cyber-input--no-prefix" />
+            </div>
+            <button id="btn-save-template" class="cyber-btn cyber-btn--sm">儲存</button>
           </div>
         </div>
 
-        <!-- Important Reminder 1 -->
-        <div class="bg-vw-lavender-light border-l-4 border-vw-lavender p-3 text-sm text-vw-muted rounded-r-lg mb-6 shadow-sm">
-          <strong class="font-semibold text-vw-purple">重要提醒</strong>：<br />
+        <!-- 重要提醒 -->
+        <div class="cyber-alert">
+          <strong>⚠ 重要提醒</strong><br />
           1. 請先在「申請單」頁籤按一次填入。<br />
           2. <strong>切換到「預算&借支明細」頁籤</strong>，<strong>再按一次「一鍵填入」</strong> 來填寫費用。
         </div>
 
-        <!-- Section: Basic Info -->
-        <div class="space-y-4">
-          <h3 class="text-base font-bold text-vw-purple border-b border-vw-border pb-2 mb-4 flex items-center gap-2">
-            <span class="w-1 h-5 bg-vw-purple rounded-full"></span>
+        <!-- 區段：申請單 -->
+        <div>
+          <h3 class="cyber-section-title">
+            <span class="indicator"></span>
             申請單
           </h3>
 
-          <!-- Project Code -->
-          <div>
-            <label for="projectCode" class="block mb-1.5 font-medium text-sm text-vw-label"> 專案代碼 </label>
-            <input
-              type="text"
-              id="projectCode"
-              placeholder="專案代碼"
-              class="w-full bg-white border border-vw-border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-vw-pink/20 focus:border-vw-pink transition-all"
-            />
-          </div>
-
-          <!-- Out Date + Time -->
-          <div class="flex gap-3">
-            <div class="flex-1">
-              <label for="date" class="block mb-1.5 font-medium text-sm text-vw-label"> 外出日期</label>
-              <input
-                type="date"
-                id="date"
-                class="w-full bg-white border border-vw-border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-vw-pink/20 focus:border-vw-pink transition-all"
-              />
-            </div>
-            <div class="flex-1">
-              <label for="time" class="block mb-1.5 font-medium text-sm text-vw-label"> 時間 </label>
-              <input
-                type="time"
-                id="time"
-                step="1"
-                class="w-full bg-white border border-vw-border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-vw-pink/20 focus:border-vw-pink transition-all"
-              />
+          <!-- 專案代碼 -->
+          <div class="cyber-field">
+            <label for="projectCode" class="cyber-label">專案代碼</label>
+            <div class="cyber-input-wrap">
+              <input type="text" id="projectCode" placeholder="專案代碼" class="cyber-input" />
             </div>
           </div>
 
-          <!-- Return Date + Time -->
-          <div class="flex gap-3">
-            <div class="flex-1">
-              <label for="returnDate" class="block mb-1.5 font-medium text-sm text-vw-label"> 返回日期 </label>
-              <input
-                type="date"
-                id="returnDate"
-                class="w-full bg-white border border-vw-border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-vw-pink/20 focus:border-vw-pink transition-all"
-              />
+          <!-- 外出日期 + 時間 -->
+          <div class="cyber-row">
+            <div class="cyber-field">
+              <label for="date" class="cyber-label">外出日期</label>
+              <input type="date" id="date" class="cyber-input cyber-input--no-prefix" />
             </div>
-            <div class="flex-1">
-              <label for="returnTime" class="block mb-1.5 font-medium text-sm text-vw-label"> 時間 </label>
-              <input
-                type="time"
-                id="returnTime"
-                step="1"
-                class="w-full bg-white border border-vw-border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-vw-pink/20 focus:border-vw-pink transition-all"
-              />
+            <div class="cyber-field">
+              <label for="time" class="cyber-label">時間</label>
+              <input type="time" id="time" step="1" class="cyber-input cyber-input--no-prefix" />
             </div>
           </div>
 
-          <!-- No Return Checkbox -->
-          <div class="flex items-center gap-2 mt-2">
-            <input type="checkbox" id="noReturn" class="rounded text-vw-pink focus:ring-vw-pink/50 w-4 h-4 cursor-pointer accent-vw-pink" />
-            <label for="noReturn" class="cursor-pointer text-vw-fg text-sm font-medium"> 本日不再返廠 </label>
+          <!-- 返回日期 + 時間 -->
+          <div class="cyber-row">
+            <div class="cyber-field">
+              <label for="returnDate" class="cyber-label">返回日期</label>
+              <input type="date" id="returnDate" class="cyber-input cyber-input--no-prefix" />
+            </div>
+            <div class="cyber-field">
+              <label for="returnTime" class="cyber-label">時間</label>
+              <input type="time" id="returnTime" step="1" class="cyber-input cyber-input--no-prefix" />
+            </div>
           </div>
 
-          <!-- Reason -->
-          <div>
-            <label for="reason" class="block mb-1.5 font-medium text-sm text-vw-label"> 外出原因/目標(O) </label>
-            <textarea
-              id="reason"
-              placeholder="詳填工作細項計畫 以OKR方式填寫條列式描述..."
-              class="w-full h-20 bg-white border border-vw-border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-vw-pink/20 focus:border-vw-pink transition-all resize-none"
-            ></textarea>
+          <!-- 本日不再返廠 -->
+          <div class="cyber-checkbox-wrap">
+            <input type="checkbox" id="noReturn" class="cyber-checkbox" />
+            <label for="noReturn" class="cyber-checkbox-label">本日不再返廠</label>
           </div>
 
-          <!-- Key Result -->
-          <div>
-            <label for="keyResult" class="block mb-1.5 font-medium text-sm text-vw-label"> 預期成效 (KR) </label>
-            <textarea
-              id="keyResult"
-              placeholder="請輸入預期成效..."
-              class="w-full h-20 bg-white border border-vw-border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-vw-pink/20 focus:border-vw-pink transition-all resize-none"
-            ></textarea>
+          <!-- 外出原因 -->
+          <div class="cyber-field" style="margin-top: 12px">
+            <label for="reason" class="cyber-label">外出原因/目標(O)</label>
+            <textarea id="reason" placeholder="詳填工作細項計畫 以OKR方式填寫條列式描述..." class="cyber-textarea"></textarea>
           </div>
 
-          <!-- Traffic Type -->
-          <div>
-            <label for="trafficType" class="block mb-1.5 font-medium text-sm text-vw-label"> 交通工具 </label>
-            <select
-              id="trafficType"
-              class="w-full bg-white border border-vw-border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-vw-pink/20 focus:border-vw-pink transition-all"
-            >
+          <!-- 預期成效 -->
+          <div class="cyber-field">
+            <label for="keyResult" class="cyber-label">預期成效 (KR)</label>
+            <textarea id="keyResult" placeholder="請輸入預期成效..." class="cyber-textarea"></textarea>
+          </div>
+
+          <!-- 交通工具 -->
+          <div class="cyber-field">
+            <label for="trafficType" class="cyber-label">交通工具</label>
+            <select id="trafficType" class="cyber-select">
               <option value="">請選擇</option>
               <option value="A1">A1: 飛機</option>
               <option value="A2">A2: 火車-高鐵</option>
@@ -214,165 +128,127 @@
             </select>
           </div>
 
-          <!-- Location -->
-          <div>
-            <label for="location" class="block mb-1.5 font-medium text-sm text-vw-label"> 到達地點 </label>
-            <input
-              type="text"
-              id="location"
-              placeholder="例如：廠商辦公室"
-              class="w-full bg-white border border-vw-border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-vw-pink/20 focus:border-vw-pink transition-all"
-            />
+          <!-- 到達地點 -->
+          <div class="cyber-field">
+            <label for="location" class="cyber-label">到達地點</label>
+            <div class="cyber-input-wrap">
+              <input type="text" id="location" placeholder="例如：廠商辦公室" class="cyber-input" />
+            </div>
           </div>
 
-          <!-- Contact Person + Phone -->
-          <div class="flex gap-3">
-            <div class="flex-1">
-              <label for="contactPerson" class="block mb-1.5 font-medium text-sm text-vw-label"> 接洽對象 </label>
-              <input
-                type="text"
-                id="contactPerson"
-                class="w-full bg-white border border-vw-border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-vw-pink/20 focus:border-vw-pink transition-all"
-              />
+          <!-- 接洽對象 + 聯系電話 -->
+          <div class="cyber-row">
+            <div class="cyber-field">
+              <label for="contactPerson" class="cyber-label">接洽對象</label>
+              <div class="cyber-input-wrap">
+                <input type="text" id="contactPerson" class="cyber-input" />
+              </div>
             </div>
-            <div class="flex-1">
-              <label for="contactPhone" class="block mb-1.5 font-medium text-sm text-vw-label"> 聯系電話 </label>
-              <input
-                type="text"
-                id="contactPhone"
-                class="w-full bg-white border border-vw-border rounded-lg px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-vw-pink/20 focus:border-vw-pink transition-all"
-              />
+            <div class="cyber-field">
+              <label for="contactPhone" class="cyber-label">聯系電話</label>
+              <div class="cyber-input-wrap">
+                <input type="text" id="contactPhone" class="cyber-input" />
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Section: Budget -->
-        <div class="mt-8">
-          <h3 class="text-base font-bold text-vw-purple border-b border-vw-border pb-2 mb-4 flex items-center gap-2">
-            <span class="w-1 h-5 bg-vw-purple rounded-full"></span>
+        <!-- 區段：預算&借支明細 -->
+        <div style="margin-top: 24px">
+          <h3 class="cyber-section-title">
+            <span class="indicator"></span>
             預算&借支明細
           </h3>
 
-          <!-- Important Reminder 2 -->
-          <div class="bg-vw-mint-light border-l-4 border-vw-mint p-3 text-sm text-vw-fg/80 rounded-r-lg mb-4 leading-relaxed">
-            <strong class="text-vw-mint-dark">提示</strong>：<br />
-            <strong>
-              1.若同一類下有多筆費用，請先點擊網頁上的
-              <span class="text-vw-mint font-extrabold bg-vw-mint/10 px-1 rounded">(+)</span>
+          <!-- 提示 -->
+          <div class="cyber-alert cyber-alert--info">
+            <strong>ℹ 提示</strong><br />
+            <strong
+              >1. 若同一類下有多筆費用，請先點擊網頁上的
+              <span class="highlight">(+)</span>
               新增對應數量的欄位，再按一鍵填入。</strong
-            ><br />2.請詳述搭乘交通工具之起訖點：<br />例如：高鐵左營到南港站<br />例如：計程車資-高鐵左營站到高雄市政府
+            ><br />
+            2. 請詳述搭乘交通工具之起訖點：<br />
+            例如：高鐵左營到南港站<br />
+            例如：計程車資-高鐵左營站到高雄市政府
           </div>
 
-          <!-- Budget Groups -->
-          <div class="space-y-4">
-            <!-- Traffic - Other -->
-            <div class="bg-white border border-vw-border p-3 rounded-xl shadow-sm">
-              <div class="font-bold mb-3 text-sm text-vw-label flex justify-between items-center bg-vw-bg/50 p-2 rounded-lg">
+          <!-- 預算群組 -->
+          <div>
+            <!-- 交通費-其他 -->
+            <div class="cyber-budget-group cyber-chamfer-sm">
+              <div class="cyber-budget-header">
                 <span>🚗 交通費-其他</span>
               </div>
-              <div id="traffic-container" class="space-y-2"></div>
-              <button
-                class="w-full mt-2 py-2.5 bg-white border-2 border-dashed border-vw-border text-vw-muted rounded-lg text-sm font-semibold hover:border-vw-pink hover:text-vw-pink hover:bg-vw-pink-light/10 transition-all flex items-center justify-center gap-1 group"
-                id="btn-add-traffic"
-              >
-                <span class="group-hover:scale-125 transition-transform text-lg leading-none">+</span> 新增一筆
-              </button>
+              <div id="traffic-container"></div>
+              <button class="cyber-btn--add" id="btn-add-traffic"><span class="plus-icon">+</span> 新增一筆</button>
             </div>
 
-            <!-- Other Fee -->
-            <div class="bg-white border border-vw-border p-3 rounded-xl shadow-sm">
-              <div class="font-bold mb-3 text-sm text-vw-label flex justify-between items-center bg-vw-bg/50 p-2 rounded-lg">
+            <!-- 其他費用 -->
+            <div class="cyber-budget-group cyber-chamfer-sm">
+              <div class="cyber-budget-header">
                 <span>📦 其他費用</span>
               </div>
-              <div id="other-container" class="space-y-2"></div>
-              <button
-                class="w-full mt-2 py-2.5 bg-white border-2 border-dashed border-vw-border text-vw-muted rounded-lg text-sm font-semibold hover:border-vw-pink hover:text-vw-pink hover:bg-vw-pink-light/10 transition-all flex items-center justify-center gap-1 group"
-                id="btn-add-other"
-              >
-                <span class="group-hover:scale-125 transition-transform text-lg leading-none">+</span> 新增一筆
-              </button>
+              <div id="other-container"></div>
+              <button class="cyber-btn--add" id="btn-add-other"><span class="plus-icon">+</span> 新增一筆</button>
             </div>
 
-            <!-- Meal Fee -->
-            <div class="bg-white border border-vw-border p-3 rounded-xl shadow-sm">
-              <div class="font-bold mb-3 text-sm text-vw-label flex justify-between items-center bg-vw-bg/50 p-2 rounded-lg">
+            <!-- 誤餐費 -->
+            <div class="cyber-budget-group cyber-chamfer-sm">
+              <div class="cyber-budget-header">
                 <span>🍱 誤餐費</span>
               </div>
-              <div id="meal-container" class="space-y-2"></div>
-              <button
-                class="w-full mt-2 py-2.5 bg-white border-2 border-dashed border-vw-border text-vw-muted rounded-lg text-sm font-semibold hover:border-vw-pink hover:text-vw-pink hover:bg-vw-pink-light/10 transition-all flex items-center justify-center gap-1 group"
-                id="btn-add-meal"
-              >
-                <span class="group-hover:scale-125 transition-transform text-lg leading-none">+</span> 新增一筆
-              </button>
+              <div id="meal-container"></div>
+              <button class="cyber-btn--add" id="btn-add-meal"><span class="plus-icon">+</span> 新增一筆</button>
             </div>
           </div>
         </div>
 
-        <!-- Main Fill Button -->
-        <div class="fixed bottom-0 left-0 right-0 p-4 bg-vw-bg/80 backdrop-blur border-t border-vw-border/50 z-30">
-          <button
-            id="fillBtn"
-            class="w-full py-3.5 bg-gradient-to-r from-vw-pink to-vw-purple text-white rounded-xl text-base font-bold shadow-lg shadow-vw-pink/30 hover:shadow-xl hover:shadow-vw-pink/40 hover:-translate-y-0.5 active:translate-y-0 active:shadow-sm transition-all flex items-center justify-center gap-2"
-          >
-            ⚡ 一鍵填入
-          </button>
+        <!-- 固定底部按鈕 -->
+        <div class="cyber-footer">
+          <button id="fillBtn" class="cyber-btn--glitch cyber-chamfer-sm">⚡ 一鍵填入</button>
         </div>
       </div>
       <!-- END TAB 1 -->
 
-      <!-- TAB 2: 員工因公外出報支 (Placeholder) -->
-      <div id="tab-expense" class="tab-content hidden h-[60vh] flex flex-col items-center justify-center text-center">
-        <div class="text-6xl mb-4 opacity-50">💸</div>
-        <h3 class="text-xl font-bold text-vw-label mb-2">員工因公外出報支</h3>
-        <p class="text-vw-muted text-sm px-10">此功能尚未開放<br />敬請期待！</p>
+      <!-- TAB 2: 員工因公外出報支 -->
+      <div id="tab-expense" class="tab-content">
+        <div class="cyber-placeholder">
+          <div class="icon">💸</div>
+          <h3>員工因公外出報支</h3>
+          <p>此功能尚未開放<br />敬請期待！</p>
+        </div>
       </div>
 
-      <!-- TAB 3: 員工費用－一般費用申請 (Placeholder) -->
-      <div id="tab-general" class="tab-content hidden h-[60vh] flex flex-col items-center justify-center text-center">
-        <div class="text-6xl mb-4 opacity-50">🧾</div>
-        <h3 class="text-xl font-bold text-vw-label mb-2">員工費用－一般費用申請</h3>
-        <p class="text-vw-muted text-sm px-10">此功能尚未開放<br />敬請期待！</p>
+      <!-- TAB 3: 員工費用－一般費用申請 -->
+      <div id="tab-general" class="tab-content">
+        <div class="cyber-placeholder">
+          <div class="icon">🧾</div>
+          <h3>員工費用－一般費用申請</h3>
+          <p>此功能尚未開放<br />敬請期待！</p>
+        </div>
       </div>
     </div>
 
-    <!-- Status (Global) for notification -->
-    <div
-      id="status"
-      class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-vw-fg/90 text-white px-6 py-4 rounded-xl text-base font-medium shadow-2xl backdrop-blur pointer-events-none opacity-0 transition-opacity z-[100] text-center max-w-[80vw]"
-    ></div>
+    <!-- 狀態通知 (Toast) -->
+    <div id="status" class="cyber-status"></div>
 
-    <!-- HTML Template for a Budget Row -->
+    <!-- 預算列模板 -->
     <template id="budget-row-template">
-      <div class="budget-row-item bg-vw-bg p-2.5 rounded-lg border border-vw-border relative group hover:border-vw-purple/50 transition-colors">
-        <div class="flex justify-between items-center mb-1.5 text-xs text-vw-muted">
-          <span class="row-label font-mono text-[10px] bg-vw-border/50 px-1.5 py-0.5 rounded text-vw-fg/60">#1</span>
-          <button
-            class="btn-remove-row bg-transparent border-none text-vw-muted hover:text-vw-coral text-lg w-6 h-6 flex items-center justify-center rounded-full hover:bg-vw-coral-light transition-all cursor-pointer"
-            title="移除此項目"
-          >
-            &times;
-          </button>
+      <div class="budget-row-item cyber-budget-row">
+        <div class="cyber-budget-row-header">
+          <span class="row-label cyber-row-label">#1</span>
+          <button class="btn-remove-row cyber-btn-remove" title="移除此項目">&times;</button>
         </div>
-        <div class="mb-2">
-          <input
-            type="text"
-            class="input-desc w-full bg-white border border-vw-border rounded px-2.5 py-1.5 text-sm outline-none focus:ring-1 focus:ring-vw-purple focus:border-vw-purple placeholder:text-vw-muted/50"
-            placeholder="費用說明"
-          />
+        <div style="margin-bottom: 6px">
+          <input type="text" class="input-desc cyber-input--mini" placeholder="費用說明" />
         </div>
-        <div class="flex gap-2">
-          <div class="flex-[2]">
-            <input
-              type="number"
-              class="input-amount w-full bg-white border border-vw-border rounded px-2.5 py-1.5 text-sm outline-none focus:ring-1 focus:ring-vw-purple focus:border-vw-purple placeholder:text-vw-muted/50 font-mono"
-              placeholder="金額"
-            />
+        <div class="cyber-budget-inputs-row">
+          <div class="amount-col">
+            <input type="number" class="input-amount cyber-input--mini" placeholder="金額" />
           </div>
-          <div class="flex-1">
-            <select
-              class="input-currency w-full bg-white border border-vw-border rounded px-1 min-w-0 py-1.5 text-sm outline-none focus:ring-1 focus:ring-vw-purple focus:border-vw-purple text-center font-medium text-vw-label"
-            >
+          <div class="currency-col">
+            <select class="input-currency cyber-select--mini">
               <option value="NTD">NTD</option>
               <option value="RMB">RMB</option>
               <option value="USD">USD</option>
