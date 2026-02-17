@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>鴻海集團差旅平台 填表助手</title>
     <link rel="stylesheet" href="popup.css" />
+    <link rel="stylesheet" href="flatpickr.min.css" />
+    <link rel="stylesheet" href="flatpickr-dark.css" />
   </head>
   <body>
     <!-- Header / 頂部標題列 -->
@@ -46,9 +48,9 @@
 
         <!-- 重要提醒 -->
         <div class="cyber-alert">
-          <strong>⚠ 重要提醒</strong><br />
+          <strong>⚠️ 重要提醒</strong><br />
           1. 請先在「申請單」頁籤按一次填入。<br />
-          2. <strong>切換到「預算&借支明細」頁籤</strong>，<strong>再按一次「一鍵填入」</strong> 來填寫費用。
+          2. <strong>切換到「預算＆借支明細」頁籤</strong>，<strong>再按一次「一鍵填入」</strong>，來填寫費用。
         </div>
 
         <!-- 區段：申請單 -->
@@ -70,11 +72,11 @@
           <div class="cyber-row">
             <div class="cyber-field">
               <label for="date" class="cyber-label">外出日期</label>
-              <input type="date" id="date" class="cyber-input cyber-input--no-prefix" />
+              <input type="text" id="date" class="cyber-input cyber-input--no-prefix flatpickr-date" placeholder="選擇日期..." />
             </div>
             <div class="cyber-field">
               <label for="time" class="cyber-label">時間</label>
-              <input type="time" id="time" step="1" class="cyber-input cyber-input--no-prefix" />
+              <input type="text" id="time" class="cyber-input cyber-input--no-prefix flatpickr-time" placeholder="選擇時間..." />
             </div>
           </div>
 
@@ -82,18 +84,18 @@
           <div class="cyber-row">
             <div class="cyber-field">
               <label for="returnDate" class="cyber-label">返回日期</label>
-              <input type="date" id="returnDate" class="cyber-input cyber-input--no-prefix" />
+              <input type="text" id="returnDate" class="cyber-input cyber-input--no-prefix flatpickr-date" placeholder="選擇日期..." />
             </div>
             <div class="cyber-field">
               <label for="returnTime" class="cyber-label">時間</label>
-              <input type="time" id="returnTime" step="1" class="cyber-input cyber-input--no-prefix" />
+              <input type="text" id="returnTime" class="cyber-input cyber-input--no-prefix flatpickr-time" placeholder="選擇時間..." />
             </div>
           </div>
 
           <!-- 本日不再返廠 -->
           <div class="cyber-checkbox-wrap">
-            <input type="checkbox" id="noReturn" class="cyber-checkbox" />
             <label for="noReturn" class="cyber-checkbox-label">本日不再返廠</label>
+            <input type="checkbox" id="noReturn" class="cyber-checkbox" />
           </div>
 
           <!-- 外出原因 -->
@@ -162,7 +164,7 @@
 
           <!-- 提示 -->
           <div class="cyber-alert cyber-alert--info">
-            <strong>ℹ 提示</strong><br />
+            <strong>💡 提示</strong><br />
             <strong
               >1. 若同一類下有多筆費用，請先點擊網頁上的
               <span class="highlight">(+)</span>
@@ -258,6 +260,7 @@
       </div>
     </template>
 
+    <script src="flatpickr.min.js"></script>
     <script src="popup.js"></script>
   </body>
 </html>

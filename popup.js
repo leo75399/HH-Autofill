@@ -2,6 +2,25 @@ document.addEventListener("DOMContentLoaded", () => {
   loadTemplates();
   // setInitialDateTime(); // Removed default date/time setting
 
+  // --- Flatpickr Initialization ---
+  flatpickr(".flatpickr-date", {
+    dateFormat: "Y/m/d",
+    theme: "dark",
+    disableMobile: true,
+    allowInput: true,
+  });
+
+  flatpickr(".flatpickr-time", {
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i:S",
+    time_24hr: true,
+    enableSeconds: true,
+    theme: "dark",
+    disableMobile: true,
+    allowInput: true,
+  });
+
   // --- Tab Navigation Logic ---
   const tabs = document.querySelectorAll(".tab-btn");
   const contents = document.querySelectorAll(".tab-content");

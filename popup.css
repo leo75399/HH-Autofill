@@ -14,8 +14,8 @@
   --bg-muted: #1c1c2e;
   --border: #2a2a3a;
   --fg: #e0e0e0;
-  --fg-muted: #6b7280;
-  --fg-label: #9ca3af;
+  --fg-muted: #c7c8cc;
+  --fg-label: #ffffff;
 
   /* 強調色 */
   --accent: #00ff88;
@@ -24,6 +24,8 @@
   --accent-secondary-dim: rgba(255, 0, 255, 0.15);
   --accent-tertiary: #00d4ff;
   --accent-tertiary-dim: rgba(0, 212, 255, 0.15);
+  --accent-warning: #facc15;
+  --accent-warning-dim: rgba(250, 204, 21, 0.15);
   --destructive: #ff3366;
   --destructive-dim: rgba(255, 51, 102, 0.15);
 
@@ -64,7 +66,7 @@ body {
   background-color: var(--bg);
   color: var(--fg);
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 }
@@ -237,8 +239,8 @@ body::after {
   flex: 1;
   padding: 10px 4px;
   font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 600;
   color: var(--fg-muted);
   background: transparent;
   border: none;
@@ -357,7 +359,7 @@ body::after {
    ============================================================ */
 .cyber-section-title {
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--accent);
   letter-spacing: 1.5px;
@@ -387,8 +389,8 @@ body::after {
 .cyber-label {
   display: block;
   margin-bottom: 5px;
-  font-size: 11px;
-  font-weight: 400;
+  font-size: 14px;
+  font-weight: 600;
   color: var(--fg-label);
   letter-spacing: 0.5px;
   text-transform: uppercase;
@@ -406,7 +408,7 @@ body::after {
   transform: translateY(-50%);
   color: var(--accent);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 14px;
   pointer-events: none;
   opacity: 0.6;
 }
@@ -417,15 +419,15 @@ body::after {
   border: 1px solid var(--border);
   color: var(--fg);
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 14px;
   padding: 8px 10px 8px 24px;
   outline: none;
   transition: all 200ms;
 }
 
 .cyber-input::placeholder {
-  color: var(--fg-muted);
-  opacity: 0.5;
+  color: #ffffff;
+  opacity: 0.8;
 }
 
 .cyber-input:focus {
@@ -446,7 +448,7 @@ body::after {
   border: 1px solid var(--border);
   color: var(--fg);
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 14px;
   padding: 8px 10px;
   outline: none;
   resize: none;
@@ -454,8 +456,8 @@ body::after {
 }
 
 .cyber-textarea::placeholder {
-  color: var(--fg-muted);
-  opacity: 0.5;
+  color: #ffffff;
+  opacity: 0.8;
 }
 
 .cyber-textarea:focus {
@@ -470,7 +472,7 @@ body::after {
   border: 1px solid var(--border);
   color: var(--fg);
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 14px;
   padding: 8px 10px;
   outline: none;
   cursor: pointer;
@@ -504,8 +506,9 @@ body::after {
 }
 
 .cyber-checkbox-label {
-  font-size: 13px;
-  color: var(--fg);
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
   cursor: pointer;
 }
 
@@ -524,7 +527,7 @@ body::after {
    ============================================================ */
 .cyber-btn {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -633,7 +636,7 @@ body::after {
   background: transparent;
   color: var(--fg-muted);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 1px;
   text-transform: uppercase;
   cursor: pointer;
@@ -662,7 +665,7 @@ body::after {
 /* 小型按鈕 (儲存/刪除) */
 .cyber-btn--sm {
   padding: 6px 12px;
-  font-size: 11px;
+  font-size: 14px;
 }
 
 /* ============================================================
@@ -697,17 +700,17 @@ body::after {
    提醒 / Alert
    ============================================================ */
 .cyber-alert {
-  border-left: 3px solid var(--accent-secondary);
-  background: var(--accent-secondary-dim);
+  border-left: 3px solid var(--accent-warning);
+  background: var(--accent-warning-dim);
   padding: 10px 12px;
   margin-bottom: 16px;
-  font-size: 12px;
+  font-size: 15px;
   color: var(--fg);
   line-height: 1.6;
 }
 
 .cyber-alert strong {
-  color: var(--accent-secondary);
+  color: var(--accent-warning);
 }
 
 .cyber-alert--info {
@@ -740,7 +743,7 @@ body::after {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--fg-label);
   text-transform: uppercase;
@@ -773,7 +776,7 @@ body::after {
 
 .cyber-row-label {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 14px;
   color: var(--fg-muted);
   background: var(--bg-muted);
   padding: 2px 6px;
@@ -830,15 +833,15 @@ body::after {
   border: 1px solid var(--border);
   color: var(--fg);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 14px;
   padding: 6px 8px;
   outline: none;
   transition: all 200ms;
 }
 
 .cyber-input--mini::placeholder {
-  color: var(--fg-muted);
-  opacity: 0.5;
+  color: #ffffff;
+  opacity: 0.8;
 }
 
 .cyber-input--mini:focus {
@@ -852,7 +855,7 @@ body::after {
   border: 1px solid var(--border);
   color: var(--fg);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 14px;
   padding: 6px 4px;
   outline: none;
   cursor: pointer;
@@ -949,7 +952,7 @@ body::after {
 
 .cyber-placeholder p {
   color: var(--fg-muted);
-  font-size: 12px;
+  font-size: 14px;
 }
 
 /* ============================================================
@@ -1012,4 +1015,107 @@ body::after {
 ::selection {
   background: var(--accent);
   color: var(--bg);
+}
+
+/* ============================================================
+   Flatpickr Custom Styles (Cyberpunk Theme)
+   ============================================================ */
+.flatpickr-calendar {
+  background: var(--bg-surface) !important;
+  border: 1px solid var(--accent) !important;
+  box-shadow: var(--glow-lg) !important;
+  font-family: var(--font-mono) !important;
+  border-radius: 0 !important;
+}
+
+.flatpickr-calendar:before,
+.flatpickr-calendar:after {
+  display: none !important; /* Remove arrows */
+}
+
+.flatpickr-month {
+  background: var(--bg-muted) !important;
+  color: var(--accent) !important;
+  fill: var(--accent) !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+  background: var(--bg-muted) !important;
+  font-family: var(--font-mono) !important;
+  font-weight: 700 !important;
+}
+
+.flatpickr-current-month input.cur-year {
+  font-family: var(--font-mono) !important;
+  font-weight: 700 !important;
+}
+
+.flatpickr-weekdays {
+  background: var(--bg-muted) !important;
+}
+
+.flatpickr-weekday {
+  color: var(--fg-muted) !important;
+  font-family: var(--font-mono) !important;
+}
+
+.flatpickr-day {
+  color: var(--fg) !important;
+  font-family: var(--font-mono) !important;
+  border-radius: 0 !important;
+}
+
+.flatpickr-day:hover,
+.flatpickr-day:focus {
+  background: var(--bg-muted) !important;
+  border-color: var(--accent) !important;
+}
+
+.flatpickr-day.nextMonthDay,
+.flatpickr-day.prevMonthDay {
+  color: var(--fg-muted) !important;
+  opacity: 0.5;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange,
+.flatpickr-day.selected.inRange,
+.flatpickr-day.startRange.inRange,
+.flatpickr-day.endRange.inRange,
+.flatpickr-day.selected:focus,
+.flatpickr-day.startRange:focus,
+.flatpickr-day.endRange:focus,
+.flatpickr-day.selected:hover,
+.flatpickr-day.startRange:hover,
+.flatpickr-day.endRange:hover {
+  background: var(--accent) !important;
+  color: var(--bg) !important;
+  border-color: var(--accent) !important;
+  box-shadow: var(--glow-sm) !important;
+  text-shadow: none !important;
+  font-weight: 700;
+}
+
+.flatpickr-time {
+  border-top: 1px solid var(--border) !important;
+}
+
+.flatpickr-time .flatpickr-time-separator,
+.flatpickr-time .flatpickr-am-pm {
+  color: var(--fg) !important;
+  font-family: var(--font-mono) !important;
+}
+
+.flatpickr-time input {
+  color: var(--fg) !important;
+  font-family: var(--font-mono) !important;
+}
+
+.flatpickr-time input:hover,
+.flatpickr-time .flatpickr-am-pm:hover,
+.flatpickr-time input:focus,
+.flatpickr-time .flatpickr-am-pm:focus {
+  background: var(--bg-muted) !important;
 }
