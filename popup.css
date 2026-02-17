@@ -444,7 +444,7 @@ body::after {
 /* Textarea */
 .cyber-textarea {
   width: 100%;
-  min-height: 64px;
+  min-height: 94px;
   background: var(--bg-surface);
   border: 1px solid var(--border);
   color: var(--fg);
@@ -595,37 +595,32 @@ body::after {
 
 /* Glitch CTA 變體 (一鍵填入) */
 .cyber-btn--glitch {
+  position: relative;
   width: 100%;
-  padding: 14px 16px;
-  font-family: var(--font-display);
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 3px;
+  padding: 12px;
   background: var(--accent);
   color: var(--bg);
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 900;
   border: none;
-  position: relative;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.2s;
+  box-shadow: 0 0 10px var(--accent);
   overflow: hidden;
-}
-
-.cyber-btn--glitch::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  transform: translateX(-100%);
-  transition: transform 400ms;
+  /* Removed glitch pseudo-elements and animation */
 }
 
 .cyber-btn--glitch:hover {
-  filter: brightness(1.15);
-  box-shadow: var(--glow-lg);
-  color: var(--bg);
-  background: var(--accent);
+  background: #00cc6a;
+  box-shadow: 0 0 20px var(--accent);
+  transform: translateY(-2px);
 }
 
-.cyber-btn--glitch:hover::before {
-  transform: translateX(100%);
+.cyber-btn--glitch:active {
+  transform: translateY(0);
 }
 
 /* 新增一筆按鈕 */

@@ -181,7 +181,7 @@ function deleteTemplate() {
       const templates = result.ters_templates || {};
       delete templates[name];
       chrome.storage.sync.set({ ters_templates: templates }, () => {
-        showStatus(`🗑️ 範本 "${name}" 已刪除`, "#cc0000");
+        showStatus(`🗑️ 範本 "${name}" 已刪除`, "#ff0055");
         loadTemplates();
         clearForm();
       });
@@ -302,9 +302,9 @@ function fillCurrentTab() {
 
     chrome.tabs.sendMessage(tabId, { action: "fill_form", data: data }, (response) => {
       if (chrome.runtime.lastError) {
-        showStatus("❌ 無法連線，請重新整理網頁", "#cc0000");
+        showStatus("❌ 無法連線，請重新整理網頁", "#ff0055");
       } else {
-        showStatus("🚀 填寫指令已發送！", "#0056b3");
+        showStatus("🚀 填寫指令已發送！", "#00ff88");
       }
     });
   });
