@@ -82,15 +82,7 @@ body::before {
   background-size: 40px 40px;
 }
 
-/* 掃描線疊加層 */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 9999;
-  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.08) 2px, rgba(0, 0, 0, 0.08) 4px);
-}
+/* 掃描線疊加層（已移除，避免按鈕出現橫條紋） */
 
 /* ============================================================
    切角 (Chamfer) — clip-path
@@ -367,9 +359,24 @@ body::after {
   border-bottom: 1px solid var(--border);
   padding-bottom: 8px;
   margin-bottom: 14px;
+  margin-top: 8px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0, 255, 136, 0.2);
   display: flex;
   align-items: center;
   gap: 8px;
+  position: relative;
+}
+
+/* 區段標題上方的發光分隔線 */
+.cyber-section-title::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
 
 .cyber-section-title .indicator {
@@ -671,7 +678,29 @@ body::after {
   background: var(--bg-muted);
   border: 1px solid var(--border);
   padding: 12px;
-  margin-bottom: 14px;
+  margin-bottom: 24px;
+}
+
+/* 範本區內的 section-title 不需額外頂部分隔線 */
+.cyber-template-section .cyber-section-title {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.cyber-template-section .cyber-section-title::after {
+  display: none;
+}
+
+/* 回報面板內的標題不顯示分界線 */
+.report-panel .cyber-section-title {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.report-panel .cyber-section-title::after {
+  display: none;
 }
 
 .cyber-template-row {

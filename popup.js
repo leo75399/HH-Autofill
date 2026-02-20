@@ -865,10 +865,11 @@ function showStatus(msg, borderColor) {
 // ========== 問題回報 ==========
 
 function submitReport() {
+  const fromName = document.getElementById("reportFrom").value.trim();
   const subject = document.getElementById("reportSubject").value.trim();
   const body = document.getElementById("reportBody").value.trim();
 
-  // 欄位驗證
+  // 欄位驗證（回報者為非必填）
   if (!subject) {
     showStatus("⚠️ 請填寫主旨", "#d76f00");
     return;
@@ -878,18 +879,45 @@ function submitReport() {
     return;
   }
 
-  // 組合 mailto 連結
-  const recipient = "leo75399@gmail.com";
-  const fullSubject = `[HH TERS AutoFill 回報] ${subject}`;
-  const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(fullSubject)}&body=${encodeURIComponent(body)}`;
+  // 停用送出按鈕避免重複送出
+  const submitBtn = document.getElementById("reportSubmit");
+  submitBtn.disabled = true;
+  submitBtn.innerText = "⏳ 寄送中...";
 
-  // 開啟郵件客戶端
-  chrome.tabs.create({ url: mailtoUrl });
+  // 使用 EmailJS REST API 直接寄信
+  const payload = {
+    service_id: "service_oe75k3k",
+    template_id: "template_dpqfnyd",
+    user_id: "poHXsmqZ7MLMBHyOi",
+    template_params: {
+      name: fromName || "匿名用戶",
+      title: subject,
+      message: body,
+    },
+  };
 
-  // 清空表單並關閉 overlay
-  document.getElementById("reportSubject").value = "";
-  document.getElementById("reportBody").value = "";
-  document.getElementById("reportOverlay").classList.remove("active");
-
-  showStatus("📨 已開啟郵件客戶端，請確認送出！", "#00d4ff");
+  fetch("https://api.emailjs.com/api/v1.0/email/send", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  })
+    .then((res) => {
+      if (res.ok) {
+        // 清空表單並關閉 overlay
+        document.getElementById("reportFrom").value = "";
+        document.getElementById("reportSubject").value = "";
+        document.getElementById("reportBody").value = "";
+        document.getElementById("reportOverlay").classList.remove("active");
+        showStatus("✅ 回報已成功送出，感謝您的回饋！", "#00ff88");
+      } else {
+        showStatus("❌ 寄送失敗，請稍後再試", "#ff0055");
+      }
+    })
+    .catch(() => {
+      showStatus("❌ 網路錯誤，請確認網路連線", "#ff0055");
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+      submitBtn.innerText = "📨 送出回報";
+    });
 }
