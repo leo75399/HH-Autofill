@@ -28,6 +28,10 @@
       <div id="tab-apply" class="tab-content active">
         <!-- 範本控制區 -->
         <div class="cyber-template-section cyber-chamfer-sm">
+          <h3 class="cyber-section-title">
+            <span class="indicator"></span>
+            範本管理
+          </h3>
           <div class="cyber-field">
             <label for="templateSelect" class="cyber-label">選擇範本 (Template)</label>
             <div class="cyber-template-row">
@@ -225,16 +229,139 @@
 
       <!-- TAB 3: 員工費用－一般費用申請 -->
       <div id="tab-general" class="tab-content">
-        <div class="cyber-placeholder">
-          <div class="icon">🧾</div>
-          <h3>員工費用－一般費用申請</h3>
-          <p>此功能尚未開放<br />敬請期待！</p>
+        <!-- 範本控制區 (General) -->
+        <div class="cyber-template-section cyber-chamfer-sm">
+          <h3 class="cyber-section-title">
+            <span class="indicator"></span>
+            範本管理
+          </h3>
+          <div class="cyber-field">
+            <label for="templateSelectGeneral" class="cyber-label">選擇範本 (Template)</label>
+            <div class="cyber-template-row">
+              <div class="cyber-template-select">
+                <select id="templateSelectGeneral" class="cyber-select">
+                  <option value="">-- 請選擇 --</option>
+                </select>
+              </div>
+              <button id="btn-delete-template-general" class="cyber-btn cyber-btn--danger" title="刪除此範本">&times;</button>
+            </div>
+          </div>
+          <div class="cyber-template-row">
+            <div class="cyber-template-input">
+              <input type="text" id="newTemplateNameGeneral" placeholder="新範本名稱 (例如: 一般費用代墊)" class="cyber-input cyber-input--no-prefix" />
+            </div>
+            <button id="btn-save-template-general" class="cyber-btn cyber-btn--sm">儲存</button>
+          </div>
+        </div>
+
+        <!-- 區段：基本資料 -->
+        <div>
+          <h3 class="cyber-section-title">
+            <span class="indicator"></span>
+            基本資料
+          </h3>
+          <div class="cyber-field">
+            <label for="txtProjCode" class="cyber-label">專案代碼</label>
+            <div class="cyber-input-wrap">
+              <input type="text" id="txtProjCode" placeholder="專案代碼" class="cyber-input" />
+            </div>
+          </div>
+          <div class="cyber-field">
+            <label for="txtRemark" class="cyber-label">費用項目說明</label>
+            <textarea id="txtRemark" placeholder="請詳細填寫: 例如什麼專案需求" class="cyber-textarea"></textarea>
+          </div>
+        </div>
+
+        <!-- 區段：費用明細 -->
+        <div style="margin-top: 24px">
+          <h3 class="cyber-section-title">
+            <span class="indicator"></span>
+            費用明細
+          </h3>
+
+          <div id="general-rows-container"></div>
+
+          <button class="cyber-btn--add" id="btn-add-general-row"><span class="plus-icon">+</span> 新增一筆</button>
+        </div>
+
+        <!-- 區段：附檔類別 -->
+        <div style="margin-top: 24px">
+          <h3 class="cyber-section-title">
+            <span class="indicator"></span>
+            附檔類別
+          </h3>
+          <div class="cyber-field">
+            <label for="attachmentType" class="cyber-label">附檔類別</label>
+            <select id="attachmentType" class="cyber-select">
+              <option value="GENERICFEE" selected>一般費用</option>
+              <option value="REIMBURSEMENT">銷差</option>
+              <option value="TRIP">出差/返鄉</option>
+              <option value="JJSQ">交際申請</option>
+              <option value="JJBX">交際報銷</option>
+              <option value="BOARDING">乘機說明</option>
+              <option value="BATCHAPPROVEEXCEL">批量簽核清單</option>
+              <option value="BATCHAPPROVECONTACT">批量簽核聯絡單</option>
+              <option value="STATEMENT">對賬單</option>
+            </select>
+          </div>
+          <!-- 警語 -->
+          <div class="cyber-alert cyber-alert--warning" style="margin-top: 12px">
+            <strong>⚠️ 注意事項</strong><br />
+            1. 請留意上傳格式。<br />
+            2. 高鐵票檔案<strong>不要設置密碼</strong>。
+          </div>
+        </div>
+
+        <!-- 底部按鈕 -->
+        <div class="cyber-footer">
+          <button id="fillGeneralBtn" class="cyber-btn--glitch cyber-chamfer-sm">⚡ 一鍵填入</button>
         </div>
       </div>
     </div>
 
     <!-- 狀態通知 (Toast) -->
     <div id="status" class="cyber-status"></div>
+
+    <!-- 問題回報浮動按鈕 -->
+    <button id="reportFab" class="cyber-fab" title="問題回報">📩</button>
+
+    <!-- 問題回報 Overlay -->
+    <div id="reportOverlay" class="report-overlay">
+      <div class="report-panel cyber-chamfer">
+        <div class="report-header">
+          <h3 class="cyber-section-title" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0">
+            <span class="indicator"></span>
+            問題回報
+          </h3>
+          <button id="reportClose" class="cyber-btn-remove" title="關閉" style="font-size: 20px">×</button>
+        </div>
+
+        <!-- 說明 -->
+        <p class="report-desc">
+          若您遇到以下情況，歡迎回報讓我們改進：<br />
+          ⚙️ 網站改版導致欄位異動<br />
+          🐛 擴充功能出現 Bug<br />
+          💡 其他建議或需求
+        </p>
+
+        <!-- 主旨 -->
+        <div class="cyber-field">
+          <label for="reportSubject" class="cyber-label">主旨</label>
+          <div class="cyber-input-wrap">
+            <input type="text" id="reportSubject" placeholder="例如：某欄位無法填入" class="cyber-input" />
+          </div>
+        </div>
+
+        <!-- 問題描述 -->
+        <div class="cyber-field">
+          <label for="reportBody" class="cyber-label">問題描述</label>
+          <textarea id="reportBody" placeholder="請詳細描述您遇到的問題或建議..." class="cyber-textarea" style="min-height: 120px"></textarea>
+        </div>
+
+        <!-- 送出按鈕 -->
+        <button id="reportSubmit" class="cyber-btn--glitch cyber-chamfer-sm" style="margin-top: 8px">📨 送出回報</button>
+      </div>
+    </div>
 
     <!-- 預算列模板 -->
     <template id="budget-row-template">
@@ -257,6 +384,97 @@
               <option value="USD">USD</option>
             </select>
           </div>
+        </div>
+      </div>
+    </template>
+
+    <!-- 一般費用明細列模板 -->
+    <template id="general-row-template">
+      <div class="general-row-item cyber-budget-row">
+        <div class="cyber-budget-row-header">
+          <span class="row-label cyber-row-label">#1</span>
+          <button class="btn-remove-row cyber-btn-remove" title="移除此項目">&times;</button>
+        </div>
+
+        <!-- 日期 -->
+        <div class="cyber-row">
+          <div class="cyber-field">
+            <input type="text" class="input-start-date cyber-input--mini js-flatpickr-date" placeholder="開始日期" />
+          </div>
+          <div class="cyber-field">
+            <input type="text" class="input-end-date cyber-input--mini js-flatpickr-date" placeholder="結束日期" />
+          </div>
+        </div>
+
+        <!-- 費用類型 (兩層) -->
+        <div class="cyber-row" style="margin-top: 8px">
+          <div class="cyber-field">
+            <select class="input-fee-type-1 cyber-select--mini">
+              <option value="">-- 類型 --</option>
+              <option value="差旅費">差旅費</option>
+              <option value="L01">辦公費用</option>
+              <option value="L02">交通費</option>
+              <option value="L03">通訊費</option>
+              <option value="L04">保險費</option>
+              <option value="L05">人員招募費</option>
+              <option value="L06">職工培訓費</option>
+              <option value="L07">宿舍費用</option>
+              <option value="L08">福利費</option>
+              <option value="L09">加工費用</option>
+              <option value="L10">模治具費用</option>
+              <option value="L11">包裝費用</option>
+              <option value="L12">消耗用品</option>
+              <option value="L13">間接材料</option>
+              <option value="L14">檢測費用</option>
+              <option value="L15">維修保養費</option>
+              <option value="L16">動力費</option>
+              <option value="L17">租金支出</option>
+              <option value="L18">物流倉儲費用</option>
+              <option value="L19">業務推廣費</option>
+              <option value="L20">罰款支出</option>
+              <option value="L21">軟體費用</option>
+              <option value="L22">硬體費用</option>
+              <option value="L23">稅費</option>
+              <option value="L24">賠償損失</option>
+              <option value="L25">會費與政府規費</option>
+              <option value="L26">環境保護費</option>
+              <option value="L27">專業服務費</option>
+              <option value="L28">勞動保護費</option>
+              <option value="L29">進口通關費用</option>
+              <option value="L30">出口通關費用</option>
+              <option value="L31">財務費用</option>
+              <option value="L32">設備稅金</option>
+              <option value="L33">其他費用</option>
+              <option value="L34">雜項購置</option>
+              <option value="L35">安全生產費</option>
+              <option value="L36">工會費用(工會法人專用)</option>
+            </select>
+          </div>
+          <div class="cyber-field">
+            <select class="input-fee-type-2 cyber-select--mini" disabled>
+              <option value="">-- 子類型 --</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 原幣別 + 金額 -->
+        <div class="cyber-budget-inputs-row" style="margin-top: 8px">
+          <div class="currency-col">
+            <select class="input-currency cyber-select--mini">
+              <option value="NTD">NTD</option>
+              <option value="RMB">RMB</option>
+              <option value="USD">USD</option>
+              <option value="HKD">HKD</option>
+            </select>
+          </div>
+          <div class="amount-col">
+            <input type="number" class="input-amount cyber-input--mini" placeholder="金額" />
+          </div>
+        </div>
+
+        <!-- 備註 -->
+        <div style="margin-top: 8px">
+          <input type="text" class="input-remark cyber-input--mini" placeholder="備註 (KR)：請註明細項，例如:郵資快遞(寄什麼到哪)" />
         </div>
       </div>
     </template>

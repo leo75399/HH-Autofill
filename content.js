@@ -5,8 +5,7 @@ const log = (msg) => console.log(`[TERS Auto-Fill] ${msg}`);
 // Listen for messages from Popup
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "fill_form") {
-    log("Received fill_form request (Simplified Mode)");
-
+    log("Received fill_form request");
     try {
       fillAll(request.data);
       sendResponse({ status: "success" });
@@ -14,8 +13,118 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       console.error(e);
       sendResponse({ status: "error", message: e.message });
     }
+  } else if (request.action === "fill_general") {
+    log("Received fill_general request");
+
+    // Use async function for cascading behavior
+    fillGeneralForm(request.data)
+      .then(() => {
+        sendResponse({ status: "success" });
+      })
+      .catch((e) => {
+        console.error(e);
+        sendResponse({ status: "error", message: e.message });
+      });
+    return true; // Keep channel open for async response
   }
 });
+
+// ... (Existing fillAll and helpers) ...
+
+async function fillGeneralForm(data) {
+  const generalData = data.general;
+  if (!generalData) return;
+
+  log("Filling General Form...");
+
+  // 1. Basic Info
+  const basicMap = {
+    txtProjCode: generalData.projectCode,
+    txtRemark: generalData.remark,
+    AttachmentNew_GridView1_ctl03_DropDownList_AttachmentType: generalData.attachmentType,
+  };
+  applyFieldValues(basicMap);
+
+  // 2. Fill General Rows (Sequential due to cascading)
+  const rows = generalData.rows || [];
+  for (let i = 0; i < rows.length; i++) {
+    await fillGeneralRow(i, rows[i]);
+  }
+}
+
+async function fillGeneralRow(index, rowData) {
+  // Pad index to 2 digits (ctl00, ctl01...)
+  const ctl = "ctl" + String(index).padStart(2, "0");
+  const prefix = `rptFeeApply_${ctl}_`;
+
+  // Start Date & End Date
+  applyFieldValues({
+    [prefix + "txtStartDate"]: rowData.startDate,
+    [prefix + "txtEndDate"]: rowData.endDate,
+    [prefix + "txtRemarkDetail"]: rowData.remark,
+    [prefix + "txtFee"]: rowData.amount,
+    [prefix + "ddlCurrency"]: rowData.currency,
+  });
+
+  // Fee Type Cascading Logic
+  const l1Id = prefix + "ddlFeeTypeSecond";
+  const l2Id = prefix + "ddlFeeTypeThird";
+
+  const l1Select = findEl(l1Id);
+  if (l1Select && rowData.feeType1) {
+    if (l1Select.value !== rowData.feeType1) {
+      l1Select.value = rowData.feeType1;
+      l1Select.dispatchEvent(new Event("change", { bubbles: true }));
+
+      // Wait for L2 to populate/enable
+      // TERS uses UpdatePanel which might take time.
+      log(`Waiting for L2 options for ${l1Id}...`);
+      await waitForL2Options(l2Id);
+    }
+
+    // Set L2
+    if (rowData.feeType2) {
+      const l2Select = findEl(l2Id);
+      if (l2Select) {
+        l2Select.value = rowData.feeType2;
+        l2Select.dispatchEvent(new Event("change", { bubbles: true }));
+        l2Select.style.backgroundColor = "#e6ffe6";
+      }
+    }
+  }
+}
+
+function waitForL2Options(l2Id) {
+  return new Promise((resolve) => {
+    const el = findEl(l2Id);
+    if (!el) {
+      resolve();
+      return;
+    }
+
+    // Initial check: if options > 1 (assuming default is empty)
+    if (el.options.length > 1) {
+      resolve();
+      return;
+    }
+
+    // Observer approach
+    const observer = new MutationObserver(() => {
+      if (el.options.length > 1) {
+        observer.disconnect();
+        resolve();
+      }
+    });
+
+    observer.observe(el, { childList: true, subtree: true, attributes: true });
+
+    // Timeout fallback (2.5s)
+    setTimeout(() => {
+      observer.disconnect();
+      resolve();
+    }, 2500);
+  });
+}
 
 function fillAll(data) {
   // 1. Fill Basic Fields
@@ -24,8 +133,7 @@ function fillAll(data) {
   // 2. Fill Budget Fields
   const report = fillBudgetFields(data);
 
-  // 3. Feedback - Removed alerts as per user request
-  // User will verify missing fields visually on the page
+  // 3. Feedback
   log(`Fill complete. Missing rows: ${report.missingRows}`);
 }
 

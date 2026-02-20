@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Store Promo</title>
+    <link rel="stylesheet" href="popup.css" />
+    <link rel="stylesheet" href="flatpickr.min.css" />
+    <link rel="stylesheet" href="flatpickr-dark.css" />
+    <style>
+      body {
+        width: 1280px;
+        height: 800px;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #020205;
+        background-image: linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+        background-size: 50px 50px;
+      }
+
+      .promo-container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        gap: 60px;
+        position: relative;
+        z-index: 10;
+      }
+
+      .hero-text {
+        flex: 0 0 500px;
+        padding-left: 40px;
+        color: #fff;
+        font-family: "Orbitron", sans-serif;
+        text-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        text-align: left;
+      }
+      .hero-text h1 {
+        font-size: 72px;
+        margin: 0 0 20px 0;
+        line-height: 1;
+        background: linear-gradient(90deg, #00ff88, #00d4ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-transform: uppercase;
+        font-weight: 900;
+        letter-spacing: 2px;
+      }
+      .hero-text p {
+        font-size: 24px;
+        color: #ccc;
+        font-family: "Share Tech Mono", monospace;
+        margin: 0;
+        line-height: 1.6;
+        opacity: 0.8;
+      }
+      .hero-tagline {
+        display: inline-block;
+        margin-top: 30px;
+        padding: 10px 20px;
+        border: 1px solid #00ff88;
+        color: #00ff88;
+        font-size: 16px;
+        letter-spacing: 1px;
+        background: rgba(0, 255, 136, 0.1);
+        border-radius: 4px;
+      }
+
+      .mockup-frame {
+        width: 400px;
+        height: 720px;
+        border: 1px solid #333;
+        border-radius: 12px;
+        overflow: hidden; /* Hide scrollbar if needed, or overlay */
+        position: relative;
+        background: #0a0a0f;
+        box-shadow:
+          0 20px 80px rgba(0, 0, 0, 0.8),
+          0 0 30px rgba(0, 255, 136, 0.15);
+        /* Font setting similar to body in popup.css */
+        font-family: "Share Tech Mono", "Courier New", monospace;
+        font-size: 14px;
+        line-height: 1.5;
+        color: #e0e0e0;
+      }
+
+      /* Scrollbar hiding for cleaner look */
+      .mockup-frame::-webkit-scrollbar {
+        width: 0px;
+      }
+
+      /* Overlay scanline on mockup */
+      .mockup-frame::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 9999;
+        background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.08) 2px, rgba(0, 0, 0, 0.08) 4px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="promo-container">
+      <div class="hero-text">
+        <h1>TERS<br />Autofill</h1>
+        <p>> 鴻海集團差旅平台填表助手</p>
+        <p>> 自動化 / 範本存取 / 一鍵搞定</p>
+        <div class="hero-tagline">⚡ HIGH_TECH_LOW_EFFORT</div>
+      </div>
+
+      <div class="mockup-frame">
+        <!-- Content from popup.html -->
+        <div class="cyber-header">
+          <h2 class="cyber-glitch" data-text="HH Ters Autofill">HH Ters Autofill</h2>
+        </div>
+
+        <div class="cyber-tabs">
+          <button class="cyber-tab tab-btn active" data-tab="tab-apply" data-active="true">員工因公外出申請單</button>
+          <button class="cyber-tab tab-btn" data-tab="tab-expense">員工因公外出報支</button>
+          <button class="cyber-tab tab-btn" data-tab="tab-general">員工費用<br />一般費用申請單</button>
+        </div>
+
+        <div class="cyber-main">
+          <div id="tab-apply" class="tab-content active" style="padding: 15px">
+            <div class="cyber-template-section cyber-chamfer-sm">
+              <div class="cyber-field">
+                <label class="cyber-label">選擇範本 (TEMPLATE)</label>
+                <div class="cyber-template-row">
+                  <div class="cyber-template-select">
+                    <select class="cyber-select">
+                      <option>-- 請選擇 --</option>
+                    </select>
+                  </div>
+                  <button class="cyber-btn cyber-btn--danger">&times;</button>
+                </div>
+              </div>
+              <div class="cyber-template-row">
+                <div class="cyber-template-input">
+                  <input type="text" placeholder="新範本名稱 (例如: 高雄出差)" class="cyber-input cyber-input--no-prefix" />
+                </div>
+                <button class="cyber-btn cyber-btn--sm">儲存</button>
+              </div>
+            </div>
+
+            <div class="cyber-alert">
+              <strong>⚠️ 重要提醒</strong><br />
+              1. 請先在「申請單」頁籤按一次填入。<br />
+              2. <strong>切換到「預算＆借支明細」</strong>...
+            </div>
+
+            <div>
+              <h3 class="cyber-section-title"><span class="indicator"></span> 申請單</h3>
+              <div class="cyber-field">
+                <label class="cyber-label">專案代碼</label>
+                <div class="cyber-input-wrap">
+                  <input type="text" placeholder="專案代碼" class="cyber-input" />
+                </div>
+              </div>
+
+              <div class="cyber-row">
+                <div class="cyber-field">
+                  <label class="cyber-label">外出日期</label>
+                  <input type="text" class="cyber-input cyber-input--no-prefix js-flatpickr-date" placeholder="2026/02/18" />
+                </div>
+                <div class="cyber-field">
+                  <label class="cyber-label">時間</label>
+                  <input type="text" class="cyber-input cyber-input--no-prefix js-flatpickr-time" placeholder="09:00:00" />
+                </div>
+              </div>
+
+              <div class="cyber-row">
+                <div class="cyber-field">
+                  <label class="cyber-label">返回日期</label>
+                  <input type="text" class="cyber-input cyber-input--no-prefix js-flatpickr-date" placeholder="2026/02/19" />
+                </div>
+                <div class="cyber-field">
+                  <label class="cyber-label">時間</label>
+                  <input type="text" class="cyber-input cyber-input--no-prefix js-flatpickr-time" placeholder="18:00:00" />
+                </div>
+              </div>
+
+              <div class="cyber-footer" style="position: absolute; bottom: 0; left: 0; right: 0">
+                <button class="cyber-btn--glitch cyber-chamfer-sm">⚡ 一鍵填入</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="flatpickr.min.js"></script>
+    <script>
+      // Mock chrome
+      window.chrome = {
+        tabs: { query: function () {}, sendMessage: function () {} },
+        storage: { sync: { get: function () {}, set: function () {} } },
+        runtime: { lastError: null },
+      };
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize Flatpickr for visuals (border, calendar icon if any)
+        flatpickr(".js-flatpickr-date", {
+          dateFormat: "Y/m/d",
+          theme: "dark",
+        });
+        flatpickr(".js-flatpickr-time", {
+          enableTime: true,
+          noCalendar: true,
+          dateFormat: "H:i:S",
+          theme: "dark",
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1115,3 +1115,107 @@ body::after {
 .flatpickr-time .flatpickr-am-pm:focus {
   background: var(--bg-muted) !important;
 }
+
+/* ============================================================
+   問題回報 — 浮動按鈕 (FAB)
+   ============================================================ */
+.cyber-fab {
+  position: fixed;
+  bottom: 76px;
+  right: 16px;
+  z-index: 50;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-tertiary);
+  background: rgba(0, 212, 255, 0.12);
+  color: var(--accent-tertiary);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+  animation: fabPulse 3s ease-in-out infinite;
+}
+
+.cyber-fab:hover {
+  background: var(--accent-tertiary);
+  color: var(--bg);
+  box-shadow: var(--glow-tertiary);
+  transform: scale(1.1);
+  animation: none;
+}
+
+.cyber-fab:active {
+  transform: scale(0.95);
+}
+
+@keyframes fabPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 6px rgba(0, 212, 255, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 14px rgba(0, 212, 255, 0.5);
+  }
+}
+
+/* ============================================================
+   問題回報 — Overlay 面板
+   ============================================================ */
+.report-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms;
+}
+
+.report-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.report-panel {
+  width: 90%;
+  max-width: 420px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--bg-surface);
+  border: 1px solid var(--accent-tertiary);
+  box-shadow: var(--glow-tertiary);
+  padding: 20px;
+  transform: translateY(20px);
+  transition: transform 250ms;
+}
+
+.report-overlay.active .report-panel {
+  transform: translateY(0);
+}
+
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.report-desc {
+  font-size: 13px;
+  color: var(--fg-muted);
+  line-height: 1.7;
+  margin-bottom: 16px;
+  padding: 10px;
+  background: var(--accent-tertiary-dim);
+  border-left: 3px solid var(--accent-tertiary);
+}

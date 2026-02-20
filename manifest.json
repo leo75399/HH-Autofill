@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
   "name": "鴻海集團差旅平台 填表助手",
-  "version": "1.0",
+  "version": "1.5",
   "description": "Automatically fills Foxconn TERS travel application forms.",
-  "permissions": ["scripting", "storage", "activeTab", "sidePanel"],
+  "permissions": ["storage", "activeTab", "sidePanel"],
   "host_permissions": ["https://ters.efoxconn.com/*"],
   "background": {
     "service_worker": "background.js"
